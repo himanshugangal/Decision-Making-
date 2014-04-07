@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <math.h>
 #define p 1000 
-#define q 1000
-#define s 230
-#define r 500
+#define q 200
+#define s 220
+#define r 250 
 #define n 1
 #define dt 0.01
 #define C 10  
@@ -44,7 +44,7 @@ for(k=1;k<=s;k++) {
    error = 0 ; 
 	
     for (i=1; i<=q; i++){
-	  rands[i] = 90.0 + 5.0*random_normal();
+	  rands[i] = 80.0 + 25.0*random_normal();
   }	
   	  
     for (i=1;i<=k;i++){
@@ -89,8 +89,8 @@ V1[1] = 0 ;
 
 for(i=2;i<=p;i++)
 	{
-		sum_i = sum_i + (4*i*In[i])/p ;
-		V[i] = V[i-1] + 2*sum_i*dt/(C);
+		sum_i = sum_i + (i*In[i])/p ;
+		V[i] = V[i-1] + sum_i*dt/(C);
 			
 		sum1_i = sum1_i + (i*In1[i])/p ;
 		V1[i] = V1[i-1] + sum1_i*dt/(C);
