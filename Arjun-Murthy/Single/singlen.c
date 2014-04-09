@@ -32,7 +32,7 @@ float sum_i ;
 
   double rands[1000];
   for (i=1; i<=q; i++){
-  rands[i] = 50.0 + 15.0*random_normal();
+  rands[i] = 100.0 + 15.0*random_normal();
   }	
 for(j=1;j<=q;j++){
 
@@ -94,5 +94,24 @@ for(i=2;i<=p;i++){
 	}
 
 }
+FILE *RTdis ; 
+RTdis = fopen("RTDis.txt","w");
+int x,count ; 
+x = 150 ; 
+for(;;){
+count = 0 ;
+for(i=1;i<=q;i++) {
 
+	if((RT[i]<=x+10) && (RT[i]>=x)) {
+
+		count++ ; 	
+			
+		}
+	}
+fprintf(RTdis,"%d \t %d \n",count,x);
+x = x + 1 ; 
+if(x > 260 ) { break ; }	
+}
+
+fclose(RTdis);
 }
