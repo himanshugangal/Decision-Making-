@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <math.h>
 #define p 1000 
-#define q 1000
+#define q 200
 #define s 230
-#define r 150
+#define r 250
 #define n 1
 #define dt 0.01
 #define C 10  
@@ -44,14 +44,14 @@ for(k=1;k<=s;k++) {
    error = 0 ; 
 	
     for (i=1; i<=q; i++){
-	  rands[i] = 200.0 + 25.0*random_normal();
+	  rands[i] = 80.0 + 25.0*random_normal();
   }	
   	  
     for (i=1;i<=k;i++){
 	rands1[i] = 0;
   }		
     for (;i<=q;i++){
-	rands1[i] = 250.0 + 25.0*random_normal();
+	rands1[i] = 100.0 + 25.0*random_normal();
   }
 	
 for(j=1;j<=q;j++){
@@ -90,7 +90,7 @@ V1[1] = 0 ;
 for(i=2;i<=p;i++)
 	{
 		sum_i = sum_i + (i*In[i])/p ;
-		V[i] = V[i-1] + sum_i*dt/(C) -0.1*V1[i-1];
+		V[i] = V[i-1] + sum_i*dt/(C) -0.8*V1[i-1];
 			
 		sum1_i = sum1_i + (i*In1[i])/p ;
 		V1[i] = V1[i-1] + sum1_i*dt/(C) - 0.1*V[i-1];
@@ -139,26 +139,30 @@ for(i=2;i<=p;i++)
 					if(cs1>1) {
 					current1 = i ; 
 					tmp1 = current1 - previous1; 
-					rate1[i] = 1.0 / tmp;
+					rate1[i] = 1.0 / tmp1;
 					previous1 = i ;
 					}
 					
 			}
 			else {rate1[i] = rate1[i-1];}
 		}
-		
+/*		
 for(i=2;i<=p;i++){
-	if(rate[i] > 0.02){ fprintf(frt,"%d\t %f \t %d \n" , j , In[5] ,  i ) ; RT[j] = i; break; }		
+	if(rate[i] > 0.05){ fprintf(frt,"%d\t %f \t %d \n" , j , In[5] ,  i ) ; RT[j] = i; break; }		
+	}
+*/
+for(i=2;i<=p;i++){
+	if(rate1[i] > 0.05){ fprintf(frt1,"%d\t %f \t %d \t %f \n" , j , In1[5] ,  i , rate1[i] ) ; RT1[j] = i; break; }		
 	}
 
-for(i=2;i<=p;i++){
-	if(rate1[i] > 0.02){ fprintf(frt1,"%d\t %f \t %d \n" , j , In1[5] ,  i ) ; RT1[j] = i; break; }		
-	}
-
-if( (rate[r]>rate1[r]) && rate[r]>0.02 ) { error++ ; }
+if( (rate[r]>rate1[r]) && (rate[r]>0.05) ) { error++ ;
+			 fprintf(frt,"%f \t %f \t %d \n",rate[r],rate1[r],error) ;  }
+/*if( (rate1[r]>rate[r]) && (rate1[r]>0.05) ) {
+			 fprintf(frt1,"%f \t %f \t %d \n",rate[r],rate1[r],error) ;  }
+*/
 }
 errper = (float)error / q ; 
-fprintf(ferror," %d \t %d \n " , error , k ) ; 
+fprintf(ferror," %f \t %d \n " , errper , k ) ; 
 }
 
 }
